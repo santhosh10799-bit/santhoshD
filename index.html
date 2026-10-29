@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santhosh | IT Portfolio</title>
+<style>
+:root {
+  --bg: #07110e;
+  --panel: #101e19;
+  --green: #00ff99;
+  --red: #ff4057;
+  --text: #effff6;
+  --muted: #a5b9af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 20%, #00ff9917, transparent 35%),
+    radial-gradient(circle at 85% 65%, #ff405711, transparent 30%);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 8%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #07110eeF;
+  border-bottom: 1px solid #00ff992b;
+  backdrop-filter: blur(12px);
+}
+.logo { color: var(--green); font-size: 25px; font-weight: 900; }
+nav { display: flex; gap: 22px; flex-wrap: wrap; }
+nav a { color: white; text-decoration: none; font-size: 14px; }
+nav a:hover { color: var(--green); }
+section { padding: 85px 8%; scroll-margin-top: 75px; }
+.hero {
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+}
+.tag {
+  color: var(--green);
+  letter-spacing: 3px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.08; }
+h1 span { color: var(--green); }
+.hero p, .about p {
+  color: var(--muted);
+  line-height: 1.9;
+  margin: 22px 0;
+}
+.buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: .25s;
+}
+.primary { background: var(--green); color: #06130c; }
+.secondary { border: 1px solid var(--green); color: var(--green); }
+.btn:hover { transform: translateY(-4px); box-shadow: 0 8px 25px #00ff992b; }
+.photo-area { position: relative; display: grid; place-items: center; }
+.photo-ring {
+  width: min(340px, 80vw);
+  aspect-ratio: 4 / 5;
+  padding: 6px;
+  border-radius: 48% 48% 25px 25px;
+  background: linear-gradient(135deg, var(--green), #0e6b4b, var(--red), var(--green));
+  background-size: 300% 300%;
+  animation: gradient 7s ease infinite, float 5s ease-in-out infinite;
+  box-shadow: 0 0 45px #00ff992b;
+}
+.photo-ring img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+  background: var(--panel);
+}
+.float-card {
+  position: absolute;
+  background: #12231b;
+  border: 1px solid #00ff9955;
+  padding: 13px 17px;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px #0007;
+  font-size: 13px;
+}
+.top-card { top: 12%; left: -5%; }
+.bottom-card { bottom: 9%; right: -5%; }
+.section-title { font-size: 36px; margin-bottom: 15px; }
+.section-title span { color: var(--green); }
+.subtitle { color: var(--muted); margin-bottom: 35px; line-height: 1.8; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: linear-gradient(145deg, #13231b, #0a1510);
+  border: 1px solid #ffffff12;
+  padding: 25px;
+  border-radius: 14px;
+  transition: .3s;
+}
+.card:hover {
+  transform: translateY(-7px);
+  border-color: var(--green);
+  box-shadow: 0 12px 35px #00ff9915;
+}
+.card .emoji { font-size: 32px; margin-bottom: 15px; }
+.card h3 { margin-bottom: 12px; }
+.card p { color: var(--muted); line-height: 1.8; font-size: 14px; }
+.skill { margin: 20px 0; }
+.skill-label { display: flex; justify-content: space-between; margin-bottom: 9px; }
+.track { height: 8px; background: #22342a; border-radius: 20px; overflow: hidden; }
+.fill {
+  height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--green), #b0ffda);
+  border-radius: 20px;
+  transition: width 1.5s ease;
+}
+.project-card { min-height: 190px; }
+.project-card small { color: var(--green); }
+.contact-box {
+  text-align: center;
+  padding: 40px 20px;
+  border: 1px solid #00ff9933;
+  background: var(--panel);
+  border-radius: 18px;
+}
+.contact-box p { color: var(--muted); margin: 18px 0; line-height: 1.8; }
+.contact-email { color: var(--green); overflow-wrap: anywhere; }
+footer {
+  text-align: center;
+  padding: 28px 15px;
+  border-top: 1px solid #ffffff13;
+  color: var(--muted);
+  font-size: 13px;
+}
+.reveal { opacity: 0; transform: translateY(25px); transition: .8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.cursor {
+  display: inline-block;
+  color: var(--green);
+  animation: blink .7s infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes gradient {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@media(max-width: 760px) {
+  header { padding: 18px 5%; align-items: flex-start; gap: 15px; }
+  nav { gap: 12px; justify-content: flex-end; }
+  nav a { font-size: 12px; }
+  .hero { grid-template-columns: 1fr; padding-top: 60px; text-align: center; }
+  .buttons { justify-content: center; }
+  .photo-area { margin: 20px 0; }
+  .top-card { left: 0; }
+  .bottom-card { right: 0; }
+  section { padding: 65px 6%; }
+}
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SAN<span style="color:white">THOSH.</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content reveal">
+    <div class="tag">WELCOME TO MY DIGITAL WORLD</div>
+    <h1>Hi, I'm <span>Santhosh</span><br>
+      <span id="typing"></span><span class="cursor">|</span>
+    </h1>
+    <p>
+      First-year B.Tech Information Technology student at
+      Mount Zion College of Engineering and Technology (Autonomous).
+      I love coding, exploring technology, gaming and building creative ideas.
+    </p>
+    <div class="buttons">
+      <a class="btn primary" href="#projects">Explore My Work ↗</a>
+      <a class="btn secondary" href="#contact">Contact Me</a>
+    </div>
+  </div>
+
+  <div class="photo-area reveal">
+    <div class="photo-ring">
+      <!-- Keep santhosh.jpg in the same folder as index.html -->
+      <img src="santhosh.jpg" alt="Santhosh's profile photo"
+           onerror="this.style.display='none'; this.parentElement.style.background='#14251c'; this.parentElement.insertAdjacentHTML('beforeend','<div style=&quot;display:grid;place-items:center;height:100%;text-align:center;padding:20px;color:#00ff99&quot;><div><div style=&quot;font-size:60px&quot;>👨‍💻</div><h3>Santhosh</h3><p style=&quot;color:white;margin-top:10px&quot;>Add santhosh.jpg to show your photo</p></div></div>')">
+    </div>
+    <div class="float-card top-card">💻 Coding & Learning</div>
+    <div class="float-card bottom-card">🚀 Future IT Engineer</div>
+  </div>
+</section>
+
+<section id="about" class="about reveal">
+  <div class="tag">GET TO KNOW ME</div>
+  <h2 class="section-title">About <span>Me</span></h2>
+  <p>
+    I'm Santhosh, an enthusiastic IT student starting my engineering journey.
+    I am interested in learning programming, creating websites and discovering
+    how technology solves real-world problems. My goal is to keep learning,
+    improve my skills and build useful projects.
+  </p>
+  <div class="grid">
+    <div class="card"><div class="emoji">🎓</div><h3>Education</h3>
+      <p>B.Tech Information Technology<br>Mount Zion College of Engineering and Technology (Autonomous)<br>2026–2030</p>
+    </div>
+    <div class="card"><div class="emoji">🎯</div><h3>My Goal</h3>
+      <p>Become a skilled IT professional by learning programming and creating innovative projects.</p>
+    </div>
+    <div class="card"><div class="emoji">🎮</div><h3>Fun Zone</h3>
+      <p>Mobile gaming, playing Free Fire with friends, exploring technology and enjoying music.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="tag">WHAT I'M LEARNING</div>
+  <h2 class="section-title">My <span>Skills</span></h2>
+  <p class="subtitle">I'm building my skills step by step as a first-year engineering student.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>💻 Technical Skills</h3>
+      <div class="skill"><div class="skill-label"><span>HTML</span><span>Learning</span></div><div class="track"><div class="fill" data-width="65%"></div></div></div>
+      <div class="skill"><div class="skill-label"><span>CSS</span><span>Learning</span></div><div class="track"><div class="fill" data-width="50%"></div></div></div>
+      <div class="skill"><div class="skill-label"><span>JavaScript</span><span>Beginner</span></div><div class="track"><div class="fill" data-width="30%"></div></div></div>
+    </div>
+    <div class="card">
+      <h3>🌟 Personal Skills</h3>
+      <div class="skill"><div class="skill-label"><span>Creativity</span></div><div class="track"><div class="fill" data-width="75%"></div></div></div>
+      <div class="skill"><div class="skill-label"><span>Teamwork</span></div><div class="track"><div class="fill" data-width="75%"></div></div></div>
+      <div class="skill"><div class="skill-label"><span>Problem Solving</span></div><div class="track"><div class="fill" data-width="45%"></div></div></div>
+    </div>
+  </div>
+  <p class="subtitle" style="margin-top:20px">Skill bars are illustrative learning progress, not formal test scores.</p>
+</section>
+
+<section id="projects" class="reveal">
+  <div class="tag">MY CREATIVE WORK</div>
+  <h2 class="section-title">Featured <span>Projects</span></h2>
+  <p class="subtitle">Projects I'm exploring and developing as I learn.</p>
+  <div class="grid">
+    <div class="card project-card">
+      <div class="emoji">🌐</div><small>PROJECT 01</small>
+      <h3>Personal Portfolio</h3>
+      <p>A responsive portfolio website with animations, personal details and skills.</p>
+    </div>
+    <div class="card project-card">
+      <div class="emoji">🎮</div><small>PROJECT 02</small>
+      <h3>Sanwah Gaming</h3>
+      <p>A gaming shop website concept for showcasing games, platforms and prices.</p>
+    </div>
+    <div class="card project-card">
+      <div class="emoji">🤖</div><small>PROJECT 03</small>
+      <h3>Future Ideas</h3>
+      <p>Exploring creative ideas in web development, AI and useful student tools.</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="contact-box">
+    <div class="tag">LET'S CONNECT</div>
+    <h2 class="section-title">Contact <span>Me</span></h2>
+    <p>Have an idea, project or opportunity? Feel free to reach out.</p>
+    <p class="contact-email">santhosh10799@mountzion.ac</p>
+    <a class="btn primary" href="mailto:santhosh10799@mountzion.ac">✉ Send Me an Email</a>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Santhosh | Designed with 💚 and code
+</footer>
+
+<script>
+const words = ["IT Student", "Future Developer", "Creative Learner"];
+let wordIndex = 0, charIndex = 0, deleting = false;
+const typing = document.getElementById("typing");
+
+function typeEffect() {
+  const word = words[wordIndex];
+  typing.textContent = word.substring(0, charIndex);
+  if (!deleting && charIndex < word.length) {
+    charIndex++;
+    setTimeout(typeEffect, 100);
+  } else if (deleting && charIndex > 0) {
+    charIndex--;
+    setTimeout(typeEffect, 55);
+  } else {
+    deleting = !deleting;
+    if (!deleting) wordIndex = (wordIndex + 1) % words.length;
+    setTimeout(typeEffect, 850);
+  }
+}
+typeEffect();
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      entry.target.querySelectorAll(".fill").forEach(bar => {
+        bar.style.width = bar.dataset.width;
+      });
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
